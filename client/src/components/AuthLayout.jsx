@@ -21,7 +21,7 @@ function AuthLayout({ children, authentication = true }) {
     setLoader(false);
   }, [navigate, authentication, authStatus, username]);
 
-  return loader ? <Spinner width="9" /> : <>{children}</>;
+  return loader ? <Spinner className="w-9" /> : <>{children}</>;
 }
 
 export default AuthLayout;

@@ -32,7 +32,6 @@ function Post() {
   };
 
   if (message && success) {
-    console.log(message);
     navigate(`/${userInfo?.username}/all-posts`);
     dispatch(getAllPostAPI());
   }
@@ -43,7 +42,7 @@ function Post() {
   return (
     <div className="flex justify-center items-center flex-col py-2">
       {!postInfo?.featuredImage ? (
-        <Spinner />
+        <Spinner className="w-9"/>
       ) : (
         <div className="w-[90%] max-w-2xl">
           {userInfo?.username === postInfo?.author?.username && (
@@ -63,7 +62,7 @@ function Post() {
                   setShowDeleteConfirmation(!showDeleteConfirmation)
                 }
               >
-                {loading ? <Spinner width="w-4" /> : "Delete Post"}
+                {loading ? <Spinner className="w-4" /> : "Delete Post"}
               </Button>
             </div>
           )}

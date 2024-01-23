@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Button, Dropdown } from "../index";
 import { Logo } from "../index";
 import { logoutAPI } from "../../store/services/userAction";
+import { resetUserState } from "../../store/features/userSlice";
 
 function Header() {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ function Header() {
 
   const logout = () => {
     dispatch(logoutAPI());
+    dispatch(resetUserState())
     setShowDropdown(false);
   };
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Input, Logo } from "./index";
+import { Button, Input, Logo, Spinner } from "./index";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { loginAPI } from "../store/services/userAction";
@@ -13,6 +13,7 @@ function Login() {
 
   const message = useSelector((state) => state.user.message);
   const success = useSelector((state) => state.user.success);
+  const loading = useSelector((state) => state.user.loading)
 
   const login = (data) => {
     if (!data.username || !data.password) {
@@ -70,7 +71,7 @@ function Login() {
             className="w-[calc(100%-1rem)] ml-2 bg-blue-500 mt-4 hover:transform-gpu hover:scale-[1.01] hover:bg-blue-600 active:bg-blue-700"
             type="submit"
           >
-            Login
+            {loading ? <Spinner className="w-6" /> : "Login"}
           </Button>
         </div>
       </form>

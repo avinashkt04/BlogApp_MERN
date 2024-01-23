@@ -2,12 +2,16 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const createPostAPI = createAsyncThunk('post/create', async(data, {rejectWithValue}) => {
     try {
+        const token = localStorage.getItem("token")
         const formData = new FormData()
         formData.append("title", data.title)
         formData.append("featuredImage", data.featuredImage[0])
         formData.append("content", data.content)
         const response = await fetch(`${import.meta.env.VITE_BASE_URL}/blogs/create-blog`, {
             method: "POST",
+            headers:{
+                "Authorization": `Bearer ${token}`
+            },
             credentials: "include",
             body: formData
         })
@@ -20,10 +24,12 @@ const createPostAPI = createAsyncThunk('post/create', async(data, {rejectWithVal
 
 const getPostAPI = createAsyncThunk('post/getPost', async(slug, {rejectWithValue}) => {
     try {
+        const token = localStorage.getItem("token")
     const response = await fetch(`${import.meta.env.VITE_BASE_URL}/blogs/${slug}`, {
         method: "GET",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
         credentials: "include"
     })
@@ -36,10 +42,12 @@ const getPostAPI = createAsyncThunk('post/getPost', async(slug, {rejectWithValue
 
 const getAllPostAPI = createAsyncThunk('post/getAllPost', async (_, {rejectWithValue}) => {
     try {
+        const token = localStorage.getItem("token")
         const response = await fetch(`${import.meta.env.VITE_BASE_URL}/blogs/all-blogs`, {
             method: "GET",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             credentials: "include"
         });
@@ -57,6 +65,7 @@ const getAllPostAPI = createAsyncThunk('post/getAllPost', async (_, {rejectWithV
 
 const editPostAPI = createAsyncThunk('post/edit', async({slug, data}, {rejectWithValue}) => {
     try {
+        const token = localStorage.getItem("token")
         const formData = new FormData()
         formData.append("title", data.title)
         formData.append("featuredImage", data.featuredImage[0])
@@ -64,6 +73,9 @@ const editPostAPI = createAsyncThunk('post/edit', async({slug, data}, {rejectWit
         formData.append("content", data.content)
         const response = await fetch(`${import.meta.env.VITE_BASE_URL}/blogs/edit-blog/${slug}`, {
             method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
             credentials: "include",
             body: formData
         })
@@ -76,10 +88,12 @@ const editPostAPI = createAsyncThunk('post/edit', async({slug, data}, {rejectWit
 
 const deletePostAPI = createAsyncThunk('post/delet', async(slug, { rejectWithValue }) => {
     try {
+        const token = localStorage.getItem("token")
         const response = await fetch(`${import.meta.env.VITE_BASE_URL}/blogs/delete-blog/${slug}`, {
             method: "DELETE",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             credentials: "include"
         })

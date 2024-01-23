@@ -52,7 +52,7 @@ function PostForm({ error, loading, postAction, defaultValues }) {
                 type="submit"
               >
                 {loading ? (
-                  <Spinner width="5" />
+                  <Spinner className="w-6" />
                 ) : defaultValues ? (
                   "Edit Post"
                 ) : (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Input, Logo } from "./index";
+import { Button, Input, Logo, Spinner } from "./index";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +17,7 @@ function Signup() {
   const dispatch = useDispatch();
   const message = useSelector((state) => state.user.message);
   const success = useSelector((state) => state.user.success);
+  const loading = useSelector((state) => state.user.loading);
 
   const signup = (data) => {
     if (
@@ -113,7 +114,7 @@ function Signup() {
             className="w-[calc(100%-1rem)] ml-2 bg-green-500 mt-4 hover:transform-gpu hover:scale-[1.01] hover:bg-green-600 active:bg-green-700"
             type="submit"
           >
-            Signup
+            {loading ? <Spinner className="w-6" /> : "Signup"}
           </Button>
         </div>
       </form>

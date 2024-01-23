@@ -26,50 +26,64 @@ function Profile() {
   useEffect(() => {
     return () => dispatch(resetProfileState());
   }, []);
-  return (
-    <div>
-      {!loading ? (
-        <div>
-          <ProfileComponent {...profileInfo} />
-          <div className="flex flex-wrap justify-center">
-            {userInfo?.username === username && (
-              <div className="w-full flex justify-center items-center">
-                <Button
-                  className={`w-[43%] bg-[#3c3e57]  hover:bg-[#252527] ${
-                    activePost && "scale-105 bg-[#252527]"
-                  }`}
-                  onClick={() => setActivePost(true)}
-                >
-                  Active Post
-                </Button>
-                <Button
-                  className={`w-[43%] bg-[#3c3e57]  hover:bg-[#27272b] ${
-                    !activePost && "scale-105 bg-[#252527]"
-                  }`}
-                  onClick={() => setActivePost(false)}
-                >
-                  Inactive Post
-                </Button>
-              </div>
-            )}
-            {allPost
-              .filter(
-                (post) =>
-                  post.author.username === profileInfo?.username &&
-                  post.status === `${activePost ? "active" : "inactive"}`
-              )
-              .map((post) => (
-                <div className="w-full max-w-[18rem] m-3" key={post._id}>
-                  <PostCard {...post} />
-                </div>
-              ))}
-          </div>
-        </div>
-      ) : (
-        <Spinner width="9" />
-      )}
-    </div>
+
+  const filteredPosts = allPost.filter(
+    (post) =>
+      post?.author?.username === profileInfo?.username &&
+      post?.status === `${activePost ? "active" : "inactive"}`
   );
+
+  
+  const isUserProfileOwner = userInfo?.username === username;
+const shouldRenderButtons = isUserProfileOwner && allPost.some(post => post?.author?.username === profileInfo?.username);
+
+return (
+  <div>
+    {!loading ? (
+      <div>
+        <ProfileComponent {...profileInfo} />
+        <div className="flex flex-wrap justify-center">
+          {shouldRenderButtons && (
+            <div className="w-full flex justify-center items-center">
+              <Button
+                className={`w-[43%]  hover:bg-[#252527] ${
+                  activePost ? "scale-105 bg-[#252527]" : "bg-[#3c3e57]"
+                }`}
+                onClick={() => setActivePost(true)}
+              >
+                Active Post
+              </Button>
+              <Button
+                className={`w-[43%] hover:bg-[#27272b] ${
+                  !activePost ? "scale-105 bg-[#252527]" : "bg-[#3c3e57]"
+                }`}
+                onClick={() => setActivePost(false)}
+              >
+                Inactive Post
+              </Button>
+            </div>
+          )}
+          {filteredPosts.length > 0 ? (
+            filteredPosts.map((post) => (
+              <div className="w-full max-w-[18rem] m-3" key={post._id}>
+                <PostCard {...post} />
+              </div>
+            ))
+          ) : (
+            shouldRenderButtons && (
+              <div className="w-full max-w-[18rem] m-3 text-center">
+                <p>No {activePost ? "active" : "inactive"} posts available</p>
+              </div>
+            )
+          )}
+        </div>
+      </div>
+    ) : (
+      <Spinner className="w-9" />
+    )}
+  </div>
+);
+
 }
 
 export default Profile;

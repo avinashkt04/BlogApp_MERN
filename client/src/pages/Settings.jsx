@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Input, Button } from "../components";
+import { Input, Button, Spinner } from "../components";
 import { useForm } from "react-hook-form";
 import { changePasswordAPI } from "../store/services/userAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,14 +10,14 @@ function Settings() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
-  const [showPassword, setShowPassword] = useState(false);
 
   const [error, setError] = useState(null);
 
   const message = useSelector((state) => state.user.message);
   const success = useSelector((state) => state.user.success);
+  const loading = useSelector((state) => state.user.loading);
 
   const changePassword = (data) => {
     if (!data.password || !data.newPassword || !data.confNewPassword) {
@@ -31,6 +31,10 @@ function Settings() {
     setError("");
     dispatch(changePasswordAPI(data));
   };
+
+  useEffect(() => {
+    dispatch(resetUserState())
+  }, [])
 
   useEffect(() => {
     if (message && !success) {
@@ -85,16 +89,16 @@ function Settings() {
               label="New Password : "
               placeholder="Enter new password"
               type="password"
-              {...register("password", {
+              {...register("newPassword", {
                 minLength: {
                   value: 6,
                   message: "Password must have at least 6 characters.",
                 },
               })}
             />
-            {errors.password && (
+            {errors.newPassword && (
               <p className="text-sm text-red-600 mx-2">
-                {errors.password.message}
+                {errors.newPassword.message}
               </p>
             )}
 
@@ -110,7 +114,7 @@ function Settings() {
                 className="w-[calc(100%-1rem)] ml-2 bg-blue-500 mt-3 hover:transform-gpu hover:scale-[1.01] hover:bg-blue-600 active:bg-blue-700"
                 type="submit"
               >
-                Change Password
+                {loading ? <Spinner className="w-6"/> : "Change Password"}
               </Button>
             </div>
           </form>

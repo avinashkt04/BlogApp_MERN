@@ -1,10 +1,10 @@
 import React from "react";
 import loading from "../assets/loading.gif";
 
-function Spinner({ width }) {
+function Spinner({ className }) {
   return (
     <div className="flex justify-center items-center">
-      <img src={loading} alt="Loading" className={`w-9 w-${width}`} />
+      <img src={loading} alt="Loading" className={`${className}`} />
     </div>
   );
 }

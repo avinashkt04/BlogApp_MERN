@@ -4,7 +4,6 @@ import {
   Button,
   Input,
   LinksModal,
-  Select,
   Spinner,
   TextForm,
 } from "../components/index";
@@ -16,6 +15,7 @@ import {
 } from "../store/services/userAction";
 import { useNavigate } from "react-router-dom";
 import { resetUserState } from "../store/features/userSlice";
+import { getAllPostAPI } from "../store/services/postAction";
 
 function EditProfile() {
   const navigate = useNavigate();
@@ -86,7 +86,10 @@ function EditProfile() {
   }, [message]);
 
   useEffect(() => {
-    return () => dispatch(resetUserState());
+    return () => {
+      dispatch(resetUserState());
+      dispatch(getAllPostAPI());
+    }
   }, []);
 
   if (error) {
@@ -105,7 +108,7 @@ function EditProfile() {
           className="flex items-center justify-between py-2 px-2 border border-gray-300 rounded-xl bg-[#3c3e57] w-full my-2"
         >
           {loading ? (
-            <Spinner width="16" />
+            <Spinner className="w-16" />
           ) : (
             <img
               src={userInfo?.avatar}
@@ -187,7 +190,7 @@ function EditProfile() {
                 className="w-[calc(100%-1rem)] ml-2 bg-blue-500 mt-4 hover:transform-gpu hover:scale-[1.01] hover:bg-blue-600 active:bg-blue-700"
                 type="submit"
               >
-                Update Profile
+                {loading ? <Spinner className="w-6"/> : "Update Profile"}
               </Button>
             </div>
           </form>

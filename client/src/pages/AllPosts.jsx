@@ -16,7 +16,7 @@ function AllPosts() {
             </div>
           ))
       ) : (
-        <Spinner width="9" />
+        <Spinner className="w-9" />
       )}
     </div>
   );

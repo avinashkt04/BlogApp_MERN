@@ -28,7 +28,7 @@ const userSlice = createSlice({
             })
             .addCase(signupAPI.fulfilled, (state, action) => {
                 state.status = action.payload.success
-                state.userInfo = action.payload.data
+                state.userInfo = action.payload.data.user
                 state.message = action.payload.message
                 state.loading = false
                 state.success = action.payload.success
@@ -138,7 +138,7 @@ const userSlice = createSlice({
             })
             .addCase(updateAccountAPI.fulfilled, (state, action) => {
                 state.loading = false
-                state.userInfo = action.payload.data
+                state.userInfo = action.payload.data.user
                 state.message = action.payload.message
                 state.success = action.payload.success
             })

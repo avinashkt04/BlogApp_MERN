@@ -54,7 +54,10 @@ const registerUser = asyncHandler(async (req, res) => {
     .json(
       new ApiResponse(
         StatusCodes.CREATED,
-        createdUser,
+        {
+          user: createdUser,
+          token,
+        },
         "User registered Successfully"
       )
     );
@@ -166,11 +169,8 @@ const userAccountDetails = asyncHandler(async (req, res) => {
   const updateUser = {
     fullname,
     username,
+    bio,
   };
-
-  if (bio) {
-    updateUser.bio = bio;
-  }
 
   if (addLinks) {
     updateUser.links = addLinks;
@@ -200,7 +200,10 @@ const userAccountDetails = asyncHandler(async (req, res) => {
     .json(
       new ApiResponse(
         StatusCodes.OK,
-        user,
+        {
+          user,
+          newToken
+        },
         "Account details updated successfully"
       )
     );
