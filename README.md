@@ -8,7 +8,7 @@ FreeWriteSpace is a full-stack blog website built using the MERN stack (MongoDB,
 <b>Redux State Management</b>: Utilizes Redux for managing application state.
 
 <h2>Technologies Used</h2>
-<h3>Frontend</h3>:
+<h3>Frontend</h3>
 <ul>
   <li>React.js</li>
   <li>Redux</li>
@@ -16,7 +16,7 @@ FreeWriteSpace is a full-stack blog website built using the MERN stack (MongoDB,
   <li>Tailwind CSS</li>
 </ul>
 
-<h3>Backend</h3>:
+<h3>Backend</h3>
 <ul>
   <li>Node.js</li>
   <li>Express.js</li>
