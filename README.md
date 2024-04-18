@@ -22,5 +22,4 @@ FreeWriteSpace is a full-stack blog website built using the MERN stack (MongoDB,
   <li>Express.js</li>
   <li>MongoDB</li>
   <li>Mongoose (for MongoDB object modeling) CSS</li>
-  <li>JWT (JSON Web Tokens) for authentication</li>
 </ul>
